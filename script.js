@@ -1,30 +1,30 @@
-var database = [
-    {
-        username: "andrei",
-        password: "supersecret"
-    }
-];
+var button = document.getElementById("enter");
+var input = document.getElementById("userinput");
+var ul = document.querySelector("ul");
 
-var newsFeed = [
-    {
-        username: "Bobby",
-        timeline: "So tired from all that learning!"
-    },
-    {
-        username: "Sally",
-        timeline: "JavaScript is so cool!"
-    }
-];
+function inputLength() {
+	return input.value.length;
+}
 
-var usernamePrompt = prompt("What's your username?");
-var passwordPrompt = prompt("What's your password?");
+function createListElement() {
+	var li = document.createElement("li");
+	li.appendChild(document.createTextNode(input.value));
+	ul.appendChild(li);
+	input.value = "";
+}
 
-function signIn(user, pass) {
-    if (user === database[0].username && pass === database[0].password) {
-        console.log(newsFeed);
-    } else {
-        alert("Sorry, wrong username and password!");
-    }
-};
+function addListAfterClick() {
+	if (inputLength() > 0) {
+		createListElement();
+	}
+}
 
-signIn(usernamePrompt, passwordPrompt);
+function addListAfterKeypress(event) {
+	if (inputLength() > 0 && event.keyCode === 13) {
+		createListElement();
+	}
+}
+
+button.addEventListener("click", addListAfterClick);
+
+input.addEventListener("keypress", addListAfterKeypress);
